@@ -31,7 +31,7 @@ def dft(x):
         X.append(Xk)
     return X
 
-x = discrete_signal[200:420,0]           #Single channel values of original signal sample form 200 to 220.
+x = discrete_signal[200:1020,0]           #Original signal sample range selection.
 
 X = dft(x)
 print(f"Transform value is- {np.round(X,9)}")

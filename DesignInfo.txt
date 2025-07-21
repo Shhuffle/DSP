@@ -4,3 +4,14 @@ Some formulas and logic used through out the project
     Sample Rate = (Total Discrete time signal samples) / (Total duration of the signal)
     Shifting is done by moving the bits of the numpy array of Discrete time signal by NO bits
 
+2.DTFT.py 
+    Xk[e^jw] = summation (x[n] * e^(-2j*k*pi/N)) from n 0 to N or in the range (N), where N is the total samples of len(x)
+    its time complexity is of O(N^2) , which is substantially high for large input 
+    So to reduce the time complexity and computational overload we use fast fourier transform 
+    FFT is a special algorith to calculate DTFT, which is based on the fact that some values during multiplication between the signal and e^-jwn (sinusoidal signal) overlap.
+    The overlap values are only calculated onlce and used whenever needed reducing the number of calculations
+    The time complexity of FFT is O(N*logN).
+
+    
+
+
