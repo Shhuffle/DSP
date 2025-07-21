@@ -1,0 +1,6 @@
+Some formulas and logic used through out the project
+
+1.TimeShift.py
+    Sample Rate = (Total Discrete time signal samples) / (Total duration of the signal)
+    Shifting is done by moving the bits of the numpy array of Discrete time signal by NO bits
+

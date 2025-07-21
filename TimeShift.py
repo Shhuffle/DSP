@@ -14,6 +14,7 @@ print(f"Total Audio Duration: {len(discretesignal) / sample_rate:.2f} seconds")
 duration_to_plot = 0.02
 samples_to_plot = int(duration_to_plot * sample_rate)
 
+
 # Create time axis
 time_axis = np.linspace(0, duration_to_plot, samples_to_plot)
 
