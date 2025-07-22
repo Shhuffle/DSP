@@ -12,6 +12,20 @@ Some formulas and logic used through out the project
     The overlap values are only calculated once and used whenever needed reducing the number of calculations
     The time complexity of FFT is O(N*logN).
 
+3.FIR.py 
+    This is the most complex project so far in this repo. Ideal low-pass filter is implemented in this project.
+    The programme takes a sound wave input and perform fourier transform on the input sound wave and the ideal impulse signal 
+    filter and plots the graph of both the transform.
+
+    Using convolution on time domain output signal is calculated.
+    The ideal impulse response h[n] is based on the cutoff frequency provided.
+
+    Moreover, the final result is .wav file of the unfiltered and filtered Discrete time signal
+    You can change:-
+        1.input wav file name
+        2.portion of the wav file to filter
+        3.cutoff frequency
+        by changing the suitable variable values in the code.
 
 
 

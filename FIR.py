@@ -45,7 +45,7 @@ def convolution(x, h):
 # -------------------------
 cutoff_hz = 1000  # desired cutoff in Hz
 filter_length = 101  # should be odd
-start_sample, end_sample = 440, 640
+start_sample, end_sample = 440, 166640
 x = discrete_signal[start_sample:end_sample, 0]  # mono
 
 # Design filter and perform convolution
@@ -125,3 +125,11 @@ axs[2, 1].set_xlim(0, sampling_rate / 2000)
 
 plt.tight_layout()
 plt.show()
+
+
+# Normalize both signals to float32
+x_out = (x / np.max(np.abs(x))).astype(np.float32)
+y_out = (y / np.max(np.abs(y))).astype(np.float32)
+
+sf.write('Unfiltered_Input_Signal.wav', x_out, sampling_rate)
+sf.write('Filtered_Signal.wav', y_out, sampling_rate)
