@@ -1,0 +1,1 @@
+This repo contains the fundamentals of DSP implemented in python. More details about each code is explained in the designinfo folder. Discrete time fourier operations are used extensively used throughout the repo.
