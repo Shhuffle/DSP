@@ -8,7 +8,7 @@ import math
 import cmath
 
 #import .wav file and print basic info
-filename = "piano.wav"
+filename = "highfreq.wav"
 discrete_signal, sample_rate = sf.read(filename) #discrete_signal => x[n]
 Total_Sample = len(discrete_signal)
 print(f"Total Sample: {Total_Sample}")
@@ -31,7 +31,13 @@ def dft(x):
         X.append(Xk)
     return X
 
-x = discrete_signal[200:1020,0]           #Original signal sample range selection.
+x = discrete_signal[440:560,0]         #Original signal sample range selection.
+x = np.zeros(91)
+for i in range(len(x)):
+    if i == 0:
+        x[i] = 1  # sinc(0) = 1
+    else:
+        x[i] = np.sin(2 * np.pi * i / 20) / (2 * np.pi * i / 20)
 
 X = dft(x)
 print(f"Transform value is- {np.round(X,9)}")
@@ -54,7 +60,7 @@ plt.ylabel("Amplitude")
 #Magnitude plot
 plt.subplot(3,1,2)
 plt.stem(k,magnitude)
-plt.title("Magnitude Plot")
+plt.title("Magnitude Plot |X[n]|")
 plt.xlabel("K")
 plt.ylabel("Magnitude")
 

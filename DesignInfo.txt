@@ -9,9 +9,9 @@ Some formulas and logic used through out the project
     its time complexity is of O(N^2) , which is substantially high for large input 
     So to reduce the time complexity and computational overload we use fast fourier transform 
     FFT is a special algorith to calculate DTFT, which is based on the fact that some values during multiplication between the signal and e^-jwn (sinusoidal signal) overlap.
-    The overlap values are only calculated onlce and used whenever needed reducing the number of calculations
+    The overlap values are only calculated once and used whenever needed reducing the number of calculations
     The time complexity of FFT is O(N*logN).
 
-    
+
 
 
