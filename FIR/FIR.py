@@ -13,7 +13,7 @@ print(f"Total Duration: {len(discrete_signal) / sampling_rate:.2f} seconds")
 # -------------------------
 # Ideal Low-Pass Filter
 # -------------------------
-def ideal_lpf(cutoff_hz, N):
+def lpf(cutoff_hz, N):
     if N % 2 == 0:
         raise ValueError("Filter length N must be odd")
 
@@ -27,7 +27,8 @@ def ideal_lpf(cutoff_hz, N):
         else:
             hd[n] = np.sin(wc * (n - M)) / (np.pi * (n - M))
     
-    return hd
+    w = np.blackman(N)
+    return hd * w
 
 def convolution(x, h):
     N = len(x)
@@ -43,13 +44,13 @@ def convolution(x, h):
 # -------------------------
 # Parameters
 # -------------------------
-cutoff_hz = 100  # desired cutoff in Hz
-filter_length = 101  # should be odd
+cutoff_hz = 500  # desired cutoff in Hz
+filter_length = 501  # should be odd
 start_sample, end_sample = 440, 220000
 x = discrete_signal[start_sample:end_sample,0]  # mono
 
 # Design filter and perform convolution
-h = ideal_lpf(cutoff_hz, filter_length)
+h = lpf(cutoff_hz, filter_length)
 y = convolution(x, h)
 
 # -------------------------
@@ -88,7 +89,7 @@ axs[0, 0].set_ylabel("Amplitude")
 # 2. Impulse response of LPF
 n = np.arange(len(h))
 axs[0, 1].stem(n, h, basefmt=" ")
-axs[0, 1].set_title(f"Impulse Response h[n] (cutoff={cutoff_hz}Hz)")
+axs[0, 1].set_title(f"Windowed Impulse Response h[n] (cutoff={cutoff_hz}Hz)")
 axs[0, 1].set_xlabel("n")
 axs[0, 1].set_ylabel("Amplitude")
 
@@ -102,7 +103,7 @@ axs[1, 0].set_xlim(0, sampling_rate / 2000)
 
 # 4. FFT of Filter
 axs[1, 1].plot(freq_h, H_mag)
-axs[1, 1].set_title("FFT of Ideal Low-Pass Filter h[n]")
+axs[1, 1].set_title("FFT of  Low-Pass Filter h[n]")
 axs[1, 1].set_xlabel("Frequency (kHz)")
 axs[1, 1].set_ylabel("|H[k]|")
 axs[1, 1].grid(True)
