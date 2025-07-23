@@ -32,7 +32,7 @@ def dft(x):
     return X
 
 x = discrete_signal[440:560,0]         #Original signal sample range selection.
-x = np.zeros(91)
+x = np.zeros(91000)
 for i in range(len(x)):
     if i == 0:
         x[i] = 1  # sinc(0) = 1

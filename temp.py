@@ -1,33 +1,24 @@
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy.io.wavfile import write
 
-# --- Parameters ---
-filter_length = 513  # Must be odd to center at zero
-fc = 0.2             # Normalized cutoff frequency (0 < fc < 0.5)
-N_fft = 2048         # FFT length for frequency resolution
+# Parameters
+start_freq = 100        # Start at 100 Hz
+end_freq = 40000        # End at 40,000 Hz (upper hearing limit)
+duration = 10           # Duration of the sweep in seconds
+sampling_rate = 192000  # High sample rate to capture up to 40kHz (above Nyquist)
 
-# --- Generate h[n] = 2 * fc * sinc(2 * fc * n) ---
-n = np.arange(-(filter_length // 2), (filter_length // 2) + 1)
-h = 2 * fc * np.sinc(2 * fc * n)
+# Time vector
+t = np.linspace(0, duration, int(sampling_rate * duration))
 
-# Optional: apply window (for less ripple, optional)
-# window = np.hamming(filter_length)
-# h = h * window
+# Generate logarithmic frequency sweep
+k = np.log(end_freq / start_freq) / duration
+instantaneous_phase = 2 * np.pi * start_freq * (np.exp(k * t) - 1) / k
+sweep_signal = 0.8 * np.sin(instantaneous_phase)  # 0.8 to avoid clipping
 
-# --- Compute FFT ---
-H = np.fft.fft(h, N_fft)
-H_mag = np.abs(H[:N_fft // 2])  # Take positive frequencies
-H_mag /= np.max(H_mag)          # Normalize
+# Normalize and convert to 16-bit PCM
+sweep_signal_int16 = np.int16(sweep_signal * 32767)
 
-# --- Frequency Axis ---
-freq = np.linspace(0, 0.5, N_fft // 2)  # Normalized frequency (0 to 0.5)
+# Save as WAV
+write("sweep_100Hz_to_40kHz.wav", sampling_rate, sweep_signal_int16)
 
-# --- Plot ---
-plt.figure(figsize=(10, 5))
-plt.plot(freq, H_mag, color='blue', lw=2)
-plt.title("Magnitude of Fourier Transform of h[n] = sinc(n)")
-plt.xlabel("Normalized Frequency (×π rad/sample)")
-plt.ylabel("Magnitude")
-plt.grid(True)
-plt.ylim(0, 1.1)
-plt.show()
+print("WAV file generated: sweep_100Hz_to_40kHz.wav")
