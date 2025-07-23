@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import soundfile as sf 
 
 # Load audio file
-filename = "sound.wav"
+filename = "my_recording.wav"
 discrete_signal, sampling_rate = sf.read(filename)
 
 print(f"Sampling rate: {sampling_rate} Hz")
@@ -45,8 +45,8 @@ def convolution(x, h):
 # -------------------------
 cutoff_hz = 100  # desired cutoff in Hz
 filter_length = 101  # should be odd
-start_sample, end_sample = 440, 1666400
-x = discrete_signal[start_sample:end_sample]  # mono
+start_sample, end_sample = 440, 220000
+x = discrete_signal[start_sample:end_sample,0]  # mono
 
 # Design filter and perform convolution
 h = ideal_lpf(cutoff_hz, filter_length)
