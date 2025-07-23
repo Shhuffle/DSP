@@ -27,7 +27,7 @@ def lpf(cutoff_hz, N):
         else:
             hd[n] = np.sin(wc * (n - M)) / (np.pi * (n - M))
     
-    w = np.blackman(N)
+    w = np.hamming(N)
     return hd * w
 
 def convolution(x, h):
