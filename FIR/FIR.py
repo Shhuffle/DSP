@@ -79,6 +79,12 @@ Y_mag = np.abs(Y[:N_fft_y//2])
 # -------------------------
 fig, axs = plt.subplots(3, 2, figsize=(12, 6))
 
+
+
+sf.write('Unfiltered_Input_Signal.wav', x, sampling_rate)
+sf.write('Filtered_Signal.wav', y, sampling_rate)
+
+
 # 1. Original signal (time domain)
 n = np.arange(len(x))
 axs[0, 0].stem(n, x, basefmt=" ")
@@ -128,9 +134,9 @@ plt.tight_layout()
 plt.show()
 
 
-# Normalize both signals to float32
+# Normalize both signals to float32 
+#it is done so that the signal value lies between -1 to 1. It makes calculation easier and comparable.
 x_out = (x / np.max(np.abs(x))).astype(np.float32)
 y_out = (y / np.max(np.abs(y))).astype(np.float32)
 
-sf.write('Unfiltered_Input_Signal.wav', x_out, sampling_rate)
-sf.write('Filtered_Signal.wav', y_out, sampling_rate)
+
