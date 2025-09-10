@@ -31,13 +31,13 @@ def dft(x):
         X.append(Xk)
     return X
 
-x = discrete_signal[440:560,0]         #Original signal sample range selection.
-x = np.zeros(91000)
-for i in range(len(x)):
-    if i == 0:
-        x[i] = 1  # sinc(0) = 1
-    else:
-        x[i] = np.sin(2 * np.pi * i / 20) / (2 * np.pi * i / 20)
+
+x = discrete_signal[100:200,0]
+x = [0,1,2,3]       #Original signal sample range selection.
+
+
+
+
 
 X = dft(x)
 print(f"Transform value is- {np.round(X,9)}")
