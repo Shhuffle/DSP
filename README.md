@@ -4,7 +4,7 @@ This repository contains fundamental concepts of **Digital Signal Processing (DS
 
 ---
 
-## Main Highlight: FIR Filter (Low-Pass)
+## ## Folder Overview: LPF_FIR
 
 The `FIR/` folder demonstrates a **low-pass filter** using Finite Impulse Response techniques.
 
@@ -36,18 +36,45 @@ You can change the **sampling range** and **cutoff frequency** in the `FIR.py` f
 ```bash
 pip install numpy matplotlib sounddevice soundfile
 ```
-BPF_FIR: Band Pass Filter
+# BPF_FIR: Band Pass Filter 
 
-Band Pass Filter limits the frequency component of a signal. It allows passing of signal with certain frequency limits.
+This folder demonstrates a **band pass filter**, which limits the frequency components of a signal and allows only a specific frequency range to pass through. It contains all the necessary code and examples to visualize and apply the filter on audio signals.  
 
-The BandPassFilter.py file contains the code for the impulse response of the band pass filter with plots for visualization.
+---
 
-The signalProcessing.py file contains the code for the convolution of the input signal and the ideal impulse response. The ideal impulse response is shifted so that the system becomes causal. Example plots are also provided in the same folder.
 
-Run Bandpass Filter
 
-To see the bandpass filter in action, run signalProcessing.py.
+- **BandPassFilter.py**  
+  Contains the code for the **impulse response** of the band pass filter with visualization plots.
 
-You can filter your own .wav file: just name the file my_recording.wav and save it under the same folder.
+- **signalProcessing.py**  
+  Contains the code for **convolution** of the input signal with the ideal impulse response.  
+  - The impulse response is shifted to make the system **causal**.  
+  - Example plots are provided for reference.  
 
-Since it performs large computations, it may take some time to run the code and plot the graph.
+---
+
+## Usage
+
+### Run Bandpass Filter
+1. Place your `.wav` file in this folder and name it `my_recording.wav`.  
+2. Run `signalProcessing.py` to:  
+   - Apply the band pass filter to your audio.  
+   - Visualize the original and filtered signals in both **time** and **frequency domains**.  
+
+> **Note:** The filtering process involves large computations, so it may take some time to run and display the plots.  
+
+---
+
+## Modify Filter Settings
+You can modify the filter parameters such as:  
+- **Cutoff frequencies**  
+- **Sampling rate**  
+
+These changes can be made directly in `BandPassFilter.py` to observe different filter behaviors.
+
+---
+
+## Requirements
+```bash
+pip install numpy matplotlib sounddevice soundfile
