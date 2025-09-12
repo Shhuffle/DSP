@@ -25,3 +25,14 @@ Main Highlight: FIR Filter (Low-Pass)
 
 Requirements
     pip install numpy matplotlib sounddevice soundfile
+
+
+2. BPF_FIR
+    Band Pass filter limits the frequency component of a singal. It allows passing of signal with certain frequency limits.
+    This folder contains the code for bandpass filter. The file BandPassFilter.py contains the code for the impulse response
+    of the band pass filter with plots for visualization. The file signalProcessing.py contains the code for the convolution 
+    of the input signal and the ideal impulse response. The ideal impulse response is shifted so that the system becomes causal.
+    Example plot is also porvided in the same folder. 
+
+    To see the bandpass filter in action run the code signalProcessing.py. You can do filtering on your own .wav file just name the file as my_recording.wav and save it under the same folder. Since it does large computations, it will take some time to run the code.
+    

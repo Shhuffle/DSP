@@ -30,7 +30,7 @@ f1 = 4000
 f2 = 8000
 N = 400      #ideal impulse response length
 fs = sampling_rate   #sampling frequency with Nyquist Criteria
-start_sample , end_sample = 440, 22050 #for the audio file
+start_sample , end_sample = 440, 21050 #for the audio file
 
 
 
@@ -53,7 +53,7 @@ sf.write('Filtered_signal.wav',np.real(y),sampling_rate)
 #plots
 fig,axs =plt.subplots(3,2,figsize=(6,6))
 plt.tight_layout(pad=2, h_pad=4, w_pad=3)
-
+plt.figtext(0.5, 0.01, f"Cutoff Frequencies: f1 = {f1} Hz, f2 = {f2} Hz", ha="center", fontsize=10)
 
 
 k=np.arange(len(H))
