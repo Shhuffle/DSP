@@ -23,31 +23,37 @@ def conv(h,x):
                 y[n] += x[k] * h[n-k]
 
     return y,L
+#even though i have created conv function later i have use the numpy convolve as it is much faster.
+
 
 #Parameters Definition
 #cutoff frequency in hz
-f1 = 4000
-f2 = 8000
-N = 400      #ideal impulse response length
+f1 = 8000
+f2 = 15000
+N = 401      #ideal impulse response length
 fs = sampling_rate   #sampling frequency with Nyquist Criteria
-start_sample , end_sample = 440, 21050 #for the audio file
+start_sample , end_sample = 440, 220500 #for the audio file
+
 
 
 
 
 #Signal definition 
 h = hn(f1,f2,fs,N)
-x = discrete_signal[start_sample:end_sample,0] #0 means mono/single channel audio data
-y,L = conv(h,x)
+x = discrete_signal[start_sample:end_sample] #0 means mono/single channel audio data, if the audio is mono channel then remove ,0
+y = np.convolve(x,h)
+
+
+print(x[890:1200])
 
 #Transforms
-Y = np.fft.fft(y)
-X = np.fft.fft(x)
 H = np.fft.fft(h)
+X = np.fft.fft(x)
+Y = np.fft.fft(y)
 
 
-sf.write('Unfiltered_input_signal.wav',x,sampling_rate)
 sf.write('Filtered_signal.wav',np.real(y),sampling_rate)
+sf.write('Unfiltered_input_signal.wav',x,sampling_rate)
         
         
 #plots
@@ -80,16 +86,21 @@ axs[1,1].set_title("Phase of Y[w]")
 axs[1,1].set_xlabel("Khz")
 axs[1,1].set_ylabel("Phase")
 
-k = np.arange(len(X))
-axs[2,0].stem((k*fs) / (len(X) * 1000),np.absolute(X))
+import numpy as np
+
+k = np.arange(1,len(X)//2)  # only up to Nyquist and ignore the dc component i.e w = 0
+freq = (k * fs) / (len(X) * 1000)  # in kHz
+
+axs[2,0].stem(freq, np.abs(X[1:len(X)//2]))
 axs[2,0].set_title("Magnitude of X[w]")
 axs[2,0].set_xlabel("KHz")
 axs[2,0].set_ylabel("Magnitude")
 
-axs[2,1].stem((k*fs) / (len(X) * 1000),np.angle(X))
+axs[2,1].stem(freq, np.angle(X[1:len(X)//2]))
 axs[2,1].set_title("Phase of X[w]")
 axs[2,1].set_xlabel("KHz")
 axs[2,1].set_ylabel("Phase")
+
 
 plt.show()
 
