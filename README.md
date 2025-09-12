@@ -60,7 +60,7 @@ This folder demonstrates a **band pass filter**, which limits the frequency comp
 1. Place your `.wav` file in this folder and name it `my_recording.wav`.  
 2. Run `signalProcessing.py` to:  
    - Apply the band pass filter to your audio.  
-   - Visualize the original and filtered signals in both **time** and **frequency domains**.  
+   - Visualize the original and filtered signals in  **frequency domains**.  
 
 > **Note:** The filtering process involves large computations, so it may take some time to run and display the plots.  
 
