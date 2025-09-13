@@ -12,7 +12,8 @@ def hn(f1,f2,fs,N):
             h.append((w2-w1) / (2 * np.pi))
         else:
             h.append((np.exp(1j * ((w2+w1) / 2) * k) * np.sin((w2-w1)/2 * k)) / (np.pi * k))
-    return h
+    wd = np.hamming(N)
+    return h * wd
 
 
 def fft(h):

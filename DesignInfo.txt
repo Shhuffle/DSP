@@ -12,7 +12,7 @@ Some formulas and logic used through out the project
     The overlap values are only calculated once and used whenever needed reducing the number of calculations
     The time complexity of FFT is O(N*logN).
 
-3.FIR.py 
+3. LPF
     This is the most complex project so far in this repo. Ideal low-pass filter is implemented in this project.
     The programme takes a sound wave input and perform fourier transform on the input sound wave and the ideal impulse signal 
     filter and plots the graph of both the transform.
