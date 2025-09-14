@@ -60,7 +60,7 @@ def Wfft(start = 0):
 
         X[i,:] = np.fft.fft(windowed_frame)[:frame_size//2] #positive frequencies only
        
-    return (1/frame_size) * (np.abs(X)) #We are interesed only in the real part 1/framesize is dont to normalize the magnitude
+    return (np.abs(X)) #We are interesed only in the real part 
 
 
 

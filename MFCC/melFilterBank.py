@@ -81,17 +81,17 @@ def logmelspec(frame_number,IMel_binsA=IMel_bins,fft_binsA=FFTbins):
                 filtered_energy += weights * (fft_binsA[frame_number,k] ** 2)
             
         melenergy[i] = filtered_energy
-    return (np.log(melenergy + 1e-8)) #1e-8 is to avoid log of 0
+    return 20*(np.log10(melenergy + 1e-8)) #1e-8 is to avoid log of 0
 
 
 if __name__ == "__main__":
-    frame_numbers = 4
+    frame_numbers = 105
     logmag = logmelspec(frame_numbers,IMel_bins,FFTbins)
     
     plt.stem(np.arange(NumberOfFilter),logmag)
     plt.title(f"Mel Spectrum of frame {frame_numbers}")
     plt.xlabel("Mel Filter Index energy value form each melband triangular filter")
-    plt.ylabel("Log Magnitude in B")
+    plt.ylabel("Log Magnitude in dB")
     plt.grid(True)
     plt.show()
     

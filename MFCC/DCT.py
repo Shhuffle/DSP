@@ -27,8 +27,8 @@ def performdct(melspec):
 if __name__ == "__main__":
 
     #print MFCCS
-    starting_frame = 65
-    ending_frame = 66
+    starting_frame = 60
+    ending_frame = 70
     MFCCS = performdct(melspectrum[starting_frame:ending_frame,:])
     print(f"The MFCCs value for frame {starting_frame} to {ending_frame} is",MFCCS)
     print(f"Total frames {melFilterBank.FFT.total_frames}")
