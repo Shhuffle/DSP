@@ -72,21 +72,21 @@ def logmelspec(frame_number,IMel_binsA=IMel_bins,fft_binsA=FFTbins):
     for i in range(NumberOfFilter):
         filtered_energy = 0
         start = IMel_binsA[i]
-        center = IMel_bins[i+1]
-        end = IMel_bins[i+2]
+        center = IMel_binsA[i+1]
+        end = IMel_binsA[i+2]
 
         for k in range (int(start),int(end)+1):
             weights = triangular_filer(start,center,end,k)
-            if k < 551:
+            if k < (FFT.frame_size//2):
                 filtered_energy += weights * (fft_binsA[frame_number,k] ** 2)
             
         melenergy[i] = filtered_energy
-    return (np.log10(melenergy + 1e-8)) #1e-8 is to avoid log of 0
+    return (np.log(melenergy + 1e-8)) #1e-8 is to avoid log of 0
 
 
 if __name__ == "__main__":
     frame_numbers = 4
-    logmag = logmelspec(IMel_bins,FFTbins,frame_numbers)
+    logmag = logmelspec(frame_numbers,IMel_bins,FFTbins)
     
     plt.stem(np.arange(NumberOfFilter),logmag)
     plt.title(f"Mel Spectrum of frame {frame_numbers}")

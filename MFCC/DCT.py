@@ -27,8 +27,8 @@ def performdct(melspec):
 if __name__ == "__main__":
 
     #print MFCCS
-    starting_frame = 0
-    ending_frame = 41
+    starting_frame = 65
+    ending_frame = 66
     MFCCS = performdct(melspectrum[starting_frame:ending_frame,:])
     print(f"The MFCCs value for frame {starting_frame} to {ending_frame} is",MFCCS)
     print(f"Total frames {melFilterBank.FFT.total_frames}")
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     starting_frame = 0
     ending_frame = 5  # choose how many frames you want to plot
-
+'''
     for frame_number in range(starting_frame, ending_frame):
         coeffs = MFCCS[frame_number, :]  # 1D array of MFCCs for this frame
         num_coeffs = coeffs.shape[0]
@@ -62,6 +62,6 @@ if __name__ == "__main__":
         plt.title(f"MFCC Coefficients for Frame {frame_number}")
         plt.grid(True)
         plt.show()
-
+'''
 
 

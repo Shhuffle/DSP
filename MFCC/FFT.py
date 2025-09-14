@@ -60,7 +60,7 @@ def Wfft(start = 0):
 
         X[i,:] = np.fft.fft(windowed_frame)[:frame_size//2] #positive frequencies only
        
-    return np.abs(X) #We are interesed only in the real part
+    return (1/frame_size) * (np.abs(X)) #We are interesed only in the real part 1/framesize is dont to normalize the magnitude
 
 
 
@@ -72,14 +72,14 @@ if __name__ == "__main__":
     frequency_axis = (k *sampling_rate) / (frame_size*1000) #in Khz
 
     # Plot the magnitude spectrum
-    frame_number = 200
+    frame_number = 20
     axs[1,0].plot(frequency_axis, xf[frame_number,:])
     axs[1,0].set_title(f"Magnitude Spectrum of frame {frame_number}")
     axs[1,0].set_xlabel("Frequency [kHz]")
     axs[1,0].set_ylabel("Magnitude")
     axs[1,0].grid(True)
 
-    frame_number = 201
+    frame_number = 21
     axs[1,1].plot(frequency_axis, xf[frame_number,:])  
     axs[1,1].set_title(f"Magnitude Spectrum of frame {frame_number}")
     axs[1,1].set_xlabel("Frequency [kHz]")
@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
 
 
-    frame_number = 200
+    frame_number = 20
     _, win_frame200 = Windowing(x, frame_number*hop_size)
     t200 = np.arange(len(win_frame200)) / sampling_rate
     axs[0,0].plot(t200, win_frame200)
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     axs[0,0].set_ylabel("Amplitude")
     axs[0,0].grid(True)
 
-    frame_number = 201
+    frame_number = 21
     _, win_frame201 = Windowing(x, frame_number*hop_size)
     t201 = np.arange(len(win_frame201)) / sampling_rate
     axs[0,1].plot(t201, win_frame201)
