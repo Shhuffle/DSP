@@ -29,7 +29,7 @@ def PreEmphasis(x_n,alpha = 0.97):
     return y
 
 #emphasized signal 
-x = PreEmphasis(discrete_input[:,0])
+x = PreEmphasis(discrete_input[:])
 
 #Frame parameters
 frame_length  = 0.025 #25ms
@@ -52,7 +52,7 @@ def Windowing(x,frame_start):
 
 #The following function will return a 2D list (row = frame, column = Fourier Transform X(ejw)) which contains the 
 #DTFT of all the frames. This will be later used to generate mel 
-def Wfft(start):
+def Wfft(start = 0):
     X = np.zeros((total_frames,frame_size//2),dtype=complex)
     
     for i in range(total_frames):
@@ -66,24 +66,47 @@ def Wfft(start):
 
 if __name__ == "__main__":
     xf = Wfft(0)
-    fig,axs = plt.subplots(1,2,figsize = (12,6))
+    fig,axs = plt.subplots(2,2,figsize = (6,6))
+    plt.tight_layout(pad=2, h_pad=4, w_pad=3)
     k = np.arange(frame_size//2)    #up to Nyquist frequency
     frequency_axis = (k *sampling_rate) / (frame_size*1000) #in Khz
 
     # Plot the magnitude spectrum
     frame_number = 200
-    axs[0].plot(frequency_axis, xf[frame_number,:])
-    axs[0].set_title(f"Magnitude Spectrum of frame {frame_number}")
-    axs[0].set_xlabel("Frequency [kHz]")
-    axs[0].set_ylabel("Magnitude")
-    axs[0].grid(True)
+    axs[1,0].plot(frequency_axis, xf[frame_number,:])
+    axs[1,0].set_title(f"Magnitude Spectrum of frame {frame_number}")
+    axs[1,0].set_xlabel("Frequency [kHz]")
+    axs[1,0].set_ylabel("Magnitude")
+    axs[1,0].grid(True)
 
     frame_number = 201
-    axs[1].plot(frequency_axis, xf[frame_number,:])  
-    axs[1].set_title(f"Magnitude Spectrum of frame {frame_number}")
-    axs[1].set_xlabel("Frequency [kHz]")
-    axs[1].set_ylabel("Magnitude")
-    axs[1].grid(True)
+    axs[1,1].plot(frequency_axis, xf[frame_number,:])  
+    axs[1,1].set_title(f"Magnitude Spectrum of frame {frame_number}")
+    axs[1,1].set_xlabel("Frequency [kHz]")
+    axs[1,1].set_ylabel("Magnitude")
+    axs[1,1].grid(True)
+    
+
+
+
+    frame_number = 200
+    _, win_frame200 = Windowing(x, frame_number*hop_size)
+    t200 = np.arange(len(win_frame200)) / sampling_rate
+    axs[0,0].plot(t200, win_frame200)
+    axs[0,0].set_title(f"Windowed Frame {frame_number} (Time Domain)")
+    axs[0,0].set_xlabel("Time [s]")
+    axs[0,0].set_ylabel("Amplitude")
+    axs[0,0].grid(True)
+
+    frame_number = 201
+    _, win_frame201 = Windowing(x, frame_number*hop_size)
+    t201 = np.arange(len(win_frame201)) / sampling_rate
+    axs[0,1].plot(t201, win_frame201)
+    axs[0,1].set_title(f"Windowed Frame {frame_number} (Time Domain)")
+    axs[0,1].set_xlabel("Time [s]")
+    axs[0,1].set_ylabel("Amplitude")
+    axs[0,1].grid(True)
+
     plt.show()
 
 
