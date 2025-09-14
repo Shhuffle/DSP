@@ -67,7 +67,7 @@ IMel_bins = mapfreq_fftbin_index(IM)
 
 
 #mel scale energy calculation, return the log of melenergy list one form each triangular filter
-def logmelspec(IMel_binsA,fft_binsA,frame_number=0):
+def logmelspec(frame_number,IMel_binsA=IMel_bins,fft_binsA=FFTbins):
     melenergy = np.zeros(NumberOfFilter)
     for i in range(NumberOfFilter):
         filtered_energy = 0
@@ -85,11 +85,11 @@ def logmelspec(IMel_binsA,fft_binsA,frame_number=0):
 
 
 if __name__ == "__main__":
-    frame_number = 4
-    logmag = logmelspec(IMel_bins,FFTbins,frame_number)
+    frame_numbers = 4
+    logmag = logmelspec(IMel_bins,FFTbins,frame_numbers)
     
     plt.stem(np.arange(NumberOfFilter),logmag)
-    plt.title(f"Mel Spectrum of frame {frame_number}")
+    plt.title(f"Mel Spectrum of frame {frame_numbers}")
     plt.xlabel("Mel Filter Index energy value form each melband triangular filter")
     plt.ylabel("Log Magnitude in B")
     plt.grid(True)

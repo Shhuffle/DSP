@@ -29,7 +29,7 @@ def PreEmphasis(x_n,alpha = 0.97):
     return y
 
 #emphasized signal 
-x = PreEmphasis(discrete_input[:])
+x = PreEmphasis(discrete_input[:,0])
 
 #Frame parameters
 frame_length  = 0.025 #25ms
