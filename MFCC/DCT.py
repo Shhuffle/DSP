@@ -18,50 +18,58 @@ for i in range(melFilterBank.FFT.total_frames):
 
 
 def performdct(melspec):
-    num_frames, num_filters = melspec.shape
-    cepstrum = np.zeros((num_frames, num_filters), dtype=float)
-    for i in range(num_frames):
+    
+    cepstrum = np.zeros((melFilterBank.FFT.total_frames, melFilterBank.NumberOfFilter), dtype=float)
+    for i in range(melFilterBank.FFT.total_frames):
         cepstrum[i,:] = dct(melspec[i,:], type=2, norm='ortho')
     return cepstrum[:,1:14]  # keep 2nd to 13th coefficients
+
+
+
 
 if __name__ == "__main__":
 
     #print MFCCS
-    starting_frame = 60
-    ending_frame = 70
-    MFCCS = performdct(melspectrum[starting_frame:ending_frame,:])
-    print(f"The MFCCs value for frame {starting_frame} to {ending_frame} is",MFCCS)
-    print(f"Total frames {melFilterBank.FFT.total_frames}")
+    
+    MFCCS = performdct(melspectrum)
+    frame_number = 81
+    print(f"The UnNormalized MFCCs value for frame {frame_number} is",MFCCS[frame_number,:])
+    # print(f"Total frames {melFilterBank.FFT.total_frames}")
 
+    
+    mfcc_norm = (MFCCS - MFCCS.mean(axis=0)) / MFCCS.std(axis=0)
+   
+
+    print(f"Normalized MFCCs for frame {frame_number}:")
+    print(mfcc_norm[frame_number, :])
 
    #plot heat map to visualize       
     MFCCS = performdct(melspectrum)  # shape: (total_frames × 13)
+    time_axis = np.arange(mfcc_norm.shape[0]) * melFilterBank.FFT.hop_length 
+    coeff_axis = np.arange(1, mfcc_norm.shape[1]+1)
 
-    time_axis = np.arange(MFCCS.shape[0]) * melFilterBank.FFT.hop_length
+    fig,axs = plt.subplots(1,2,figsize = (12,6))
+    pcm = axs[0].pcolormesh(time_axis, coeff_axis, mfcc_norm.T, shading='auto', cmap='viridis') 
+    axs[0].pcolormesh(time_axis, coeff_axis, mfcc_norm.T, shading='auto', cmap='viridis')
+    axs[0].set_xlabel('Time [s]')
+    axs[0].set_ylabel('MFCC Coefficient')
+    axs[0].set_title('MFCC Heatmap with Normalization')
+    fig.colorbar(pcm, ax=axs[0], label='Magnitude')
+
+    time_axis = np.arange(MFCCS.shape[0]) * melFilterBank.FFT.hop_length 
     coeff_axis = np.arange(1, MFCCS.shape[1]+1)
 
-    plt.figure(figsize=(12,6))
-    plt.pcolormesh(time_axis, coeff_axis, MFCCS.T, shading='auto', cmap='viridis')
-    plt.xlabel('Time [s]')
-    plt.ylabel('MFCC Coefficient')
-    plt.title('MFCC Heatmap')
-    plt.colorbar(label='Magnitude')
+    pcm = axs[1].pcolormesh(time_axis, coeff_axis, MFCCS.T, shading='auto', cmap='viridis') 
+    axs[1].pcolormesh(time_axis, coeff_axis, MFCCS.T, shading='auto', cmap='viridis')
+    axs[1].set_xlabel('Time [s]')
+    axs[1].set_ylabel('MFCC Coefficient')
+    axs[1].set_title('MFCC Heatmap without Normalization')
+    fig.colorbar(pcm, ax=axs[1], label='Magnitude')
     plt.show()
 
-    starting_frame = 0
-    ending_frame = 5  # choose how many frames you want to plot
-'''
-    for frame_number in range(starting_frame, ending_frame):
-        coeffs = MFCCS[frame_number, :]  # 1D array of MFCCs for this frame
-        num_coeffs = coeffs.shape[0]
 
-        plt.figure(figsize=(8,4))
-        plt.stem(np.arange(1, num_coeffs+1), coeffs, basefmt=" ")
-        plt.xlabel("MFCC Coefficient Index")
-        plt.ylabel("Magnitude")
-        plt.title(f"MFCC Coefficients for Frame {frame_number}")
-        plt.grid(True)
-        plt.show()
-'''
+
+
+
 
 

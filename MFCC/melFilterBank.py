@@ -28,11 +28,11 @@ melenergy = melenergy value obtained form each filterbank, its a matrix
 
 
 def MelScale(freq):
-    M_f = 2695 * np.log10(1+freq/700)
+    M_f = 2595 * np.log10(1+freq/700)
     return M_f 
 
 def IMelScale(M_f):
-    freq = 700 * (pow(10,M_f/2695)-1)
+    freq = 700 * (pow(10,M_f/2595)-1)
     return freq
 
 M = np.linspace(MelScale(Low_freq),MelScale(High_freq),NumberOfFilter+2)
