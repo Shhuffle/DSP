@@ -1,1 +1,17 @@
-*__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environment
+venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+
+
+# Ignore system files
+.DS_Store
+Thumbs.db
