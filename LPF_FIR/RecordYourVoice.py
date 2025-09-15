@@ -5,9 +5,9 @@ import sounddevice as sd
 import soundfile as sf
 
 # Set parameters
-duration = 1  # seconds to record
+duration = 1.5  # seconds to record
 filename = 'my_recording.wav'
-sampling_rate = 44100  # CD quality
+sampling_rate = 44100  
 
 # Start recording
 print("Recording started...")

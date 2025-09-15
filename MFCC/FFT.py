@@ -29,7 +29,8 @@ def PreEmphasis(x_n,alpha = 0.97):
     return y
 
 #emphasized signal 
-frame_start = 22000
+frame_start = 22000 #The value is set to 22000 because it corresponds to 0.5s, which is the value after which the program
+#RecordYourVoice starts to record sound in most cases.
 x = PreEmphasis(discrete_input[frame_start:,0])
 
 #Frame parameters

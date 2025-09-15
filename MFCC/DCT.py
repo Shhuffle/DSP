@@ -24,21 +24,21 @@ def performdct(melspec):
         cepstrum[i,:] = dct(melspec[i,:], type=2, norm='ortho')
     return cepstrum[:,1:14]  # keep 2nd to 13th coefficients
 
-
-
+MFCCS = performdct(melspectrum)
+feature_vector = MFCCS.mean(axis=0)
 
 if __name__ == "__main__":
 
     #print MFCCS
     
-    MFCCS = performdct(melspectrum)
+   
     frame_number = 40
     print(f"The UnNormalized MFCCs value for frame {frame_number} is",MFCCS[frame_number,:])
     # print(f"Total frames {melFilterBank.FFT.total_frames}")
 
     
     mfcc_norm = (MFCCS - MFCCS.mean(axis=0)) / MFCCS.std(axis=0)
-    feature_vector = MFCCS.mean(axis=0)
+    
     print(f"Normalized MFCCs for frame {frame_number}:")
     print(mfcc_norm[frame_number, :])
     print("Featured_Vector: ",feature_vector)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     axs[0].pcolormesh(time_axis, coeff_axis, mfcc_norm.T, shading='auto', cmap='viridis')
     axs[0].set_xlabel('Time [s]')
     axs[0].set_ylabel('MFCC Coefficient')
-    axs[0].set_title('MFCC Heatmap with Normalization')
+    axs[0].set_title('Feature MFCCs')
     fig.colorbar(pcm, ax=axs[0], label='Magnitude')
 
     time_axis = np.arange(MFCCS.shape[0]) * melFilterBank.FFT.hop_length 
