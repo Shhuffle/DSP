@@ -78,3 +78,6 @@ These changes can be made directly in `BandPassFilter.py` to observe different f
 ## Requirements
 ```bash
 pip install numpy matplotlib sounddevice soundfile
+```
+**MFCC**  
+ALL info related to this folder is inside a txt file "Guide.txt" located inside the same folder
