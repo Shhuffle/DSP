@@ -32,16 +32,16 @@ if __name__ == "__main__":
     #print MFCCS
     
     MFCCS = performdct(melspectrum)
-    frame_number = 81
+    frame_number = 40
     print(f"The UnNormalized MFCCs value for frame {frame_number} is",MFCCS[frame_number,:])
     # print(f"Total frames {melFilterBank.FFT.total_frames}")
 
     
     mfcc_norm = (MFCCS - MFCCS.mean(axis=0)) / MFCCS.std(axis=0)
-   
-
+    feature_vector = MFCCS.mean(axis=0)
     print(f"Normalized MFCCs for frame {frame_number}:")
     print(mfcc_norm[frame_number, :])
+    print("Featured_Vector: ",feature_vector)
 
    #plot heat map to visualize       
     MFCCS = performdct(melspectrum)  # shape: (total_frames × 13)

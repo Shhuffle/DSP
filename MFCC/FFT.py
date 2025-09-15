@@ -29,7 +29,8 @@ def PreEmphasis(x_n,alpha = 0.97):
     return y
 
 #emphasized signal 
-x = PreEmphasis(discrete_input[:,0])
+frame_start = 22000
+x = PreEmphasis(discrete_input[frame_start:,0])
 
 #Frame parameters
 frame_length  = 0.025 #25ms
@@ -37,10 +38,11 @@ hop_length = 0.01 #10ms
 hop_size = int(sampling_rate * hop_length)
 frame_size = int(sampling_rate * frame_length)
 total_frames = int((len(x) - frame_size) / hop_size)
-
+print("Total Frames ",total_frames)
 def frames(x,start):
     next_frame = start+hop_size
     current_frame_val =  x[start:start+frame_size]
+    
     return next_frame, current_frame_val
 
 
